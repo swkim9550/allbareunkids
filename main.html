@@ -279,6 +279,76 @@
             0% { transform: scale(0); opacity: 1; }
             100% { transform: scale(1); opacity: 0; }
         }
+
+        /* 모바일 반응형 */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            
+            .main-card { margin: 0; }
+            
+            .header-gradient { padding: 20px 16px; }
+            
+            .logo-container { width: 60px; height: 60px; }
+            
+            .logo-inner img { width: 40px; height: 40px; }
+            
+            h1 { font-size: 24px !important; }
+            
+            .rainbow-text { font-size: 14px; }
+            
+            .download-btn { top: 10px; right: 10px; padding: 8px 12px; font-size: 12px; }
+            
+            /* 테이블을 카드 형태로 변경 */
+            .table-header { display: none; }
+            
+            .month-row {
+                display: block !important;
+                background: white;
+                margin: 16px 0;
+                border-radius: 16px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                overflow: hidden;
+            }
+            
+            .month-header {
+                background: linear-gradient(45deg, #ff6b6b, #feca57);
+                color: white;
+                padding: 16px;
+                text-align: center;
+                font-weight: bold;
+                font-size: 18px;
+            }
+            
+            .activities-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                padding: 16px;
+            }
+            
+            .activity-section {
+                text-align: center;
+            }
+            
+            .activity-label {
+                font-size: 12px;
+                font-weight: bold;
+                color: #666;
+                margin-bottom: 8px;
+            }
+            
+            .activity-card {
+                padding: 12px;
+                margin: 0;
+            }
+            
+            .activity-image {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .particle { display: none; }
+        }
     </style>
 </head>
 <body class="flex justify-center items-center min-h-screen">
@@ -343,7 +413,7 @@
         </div>
 
         <!-- 3월 -->
-        <div class="grid grid-cols-6 text-center border-b border-gray-200 row-hover">
+        <div class="grid grid-cols-6 text-center border-b border-gray-200 row-hover month-row">
             <div class="p-4 flex items-center justify-center">
                 <div class="month-badge">3</div>
             </div>
@@ -372,6 +442,41 @@
                 <div class="activity-card">
                     <img src="https://placehold.co/80x80/3B82F6/FFF?text=🎯" alt="스텝롤" class="activity-image w-24 h-24 mx-auto mb-2 object-cover">
                     <span class="text-sm font-medium">Step roll</span>
+                </div>
+            </div>
+            
+            <!-- 모바일용 카드 구조 -->
+            <div class="month-header hidden">
+                3월 - Color
+            </div>
+            <div class="activities-grid hidden">
+                <div class="activity-section">
+                    <div class="activity-label">근력&근지구력</div>
+                    <div class="activity-card">
+                        <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/1.jpeg" alt="낙하산" class="activity-image mx-auto mb-2 object-cover">
+                        <span class="text-xs font-medium">Parachute</span>
+                    </div>
+                </div>
+                <div class="activity-section">
+                    <div class="activity-label">심폐지구력</div>
+                    <div class="activity-card">
+                        <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/2.jpeg" alt="돔콘" class="activity-image mx-auto mb-2 object-cover">
+                        <span class="text-xs font-medium">Dome cone</span>
+                    </div>
+                </div>
+                <div class="activity-section">
+                    <div class="activity-label">순발력&민첩성</div>
+                    <div class="activity-card">
+                        <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/3.jpeg" alt="스킬볼" class="activity-image mx-auto mb-2 object-cover">
+                        <span class="text-xs font-medium">Skill ball</span>
+                    </div>
+                </div>
+                <div class="activity-section">
+                    <div class="activity-label">유연성&평형성</div>
+                    <div class="activity-card">
+                        <img src="https://placehold.co/80x80/3B82F6/FFF?text=🎯" alt="스텝롤" class="activity-image mx-auto mb-2 object-cover">
+                        <span class="text-xs font-medium">Step roll</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -816,10 +921,41 @@
         }
     });
 
+    // 모바일 반응형 처리
+    function handleResponsive() {
+        const isMobile = window.innerWidth <= 768;
+        const monthRows = document.querySelectorAll('.month-row');
+        
+        monthRows.forEach(row => {
+            const desktopContent = row.querySelector('.grid');
+            const mobileHeader = row.querySelector('.month-header');
+            const mobileGrid = row.querySelector('.activities-grid');
+            
+            if (isMobile) {
+                // 모바일: 데스크톱 숨기고 모바일 보이기
+                Array.from(row.children).forEach((child, index) => {
+                    if (index < 6) child.style.display = 'none';
+                });
+                if (mobileHeader) mobileHeader.classList.remove('hidden');
+                if (mobileGrid) mobileGrid.classList.remove('hidden');
+            } else {
+                // 데스크톱: 모바일 숨기고 데스크톱 보이기
+                Array.from(row.children).forEach((child, index) => {
+                    if (index < 6) child.style.display = '';
+                });
+                if (mobileHeader) mobileHeader.classList.add('hidden');
+                if (mobileGrid) mobileGrid.classList.add('hidden');
+            }
+        });
+    }
+
     // 페이지 로드 시 애니메이션 시작
     window.addEventListener('load', () => {
         setTimeout(animateTitle, 500);
+        handleResponsive();
     });
+    
+    window.addEventListener('resize', handleResponsive);
 
     async function downloadImage() {
         const button = document.querySelector('.download-btn');
