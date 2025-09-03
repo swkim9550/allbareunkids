@@ -12,7 +12,10 @@
     <style>
         body {
             font-family: 'Fredoka', 'Jua', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%), 
+                        url('https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/background.png');
+            background-size: cover;
+            background-position: center;
             background-attachment: fixed;
             min-height: 100vh;
             padding: 20px;
@@ -84,23 +87,25 @@
             border: 2px solid #e0e7ff;
             border-radius: 16px;
             transition: all 0.3s ease;
-            padding: 12px;
+            padding: 16px;
         }
 
         .activity-card:hover {
             border-color: #ff6b6b;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.3);
         }
 
         .activity-image {
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            border: 3px solid #fff;
         }
 
         .activity-image:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
         }
 
         .table-header {
@@ -203,25 +208,25 @@
             </div>
             <div class="p-4">
                 <div class="activity-card">
-                    <img src="https://raw.githubusercontent.com/USERNAME/REPOSITORY/main/images/1.jpeg" alt="낙하산" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/1.jpeg" alt="낙하산" class="activity-image w-24 h-24 mx-auto mb-2 object-cover">
                     <span class="text-sm font-medium">Parachute</span>
                 </div>
             </div>
             <div class="p-4">
                 <div class="activity-card">
-                    <img src="https://raw.githubusercontent.com/USERNAME/REPOSITORY/main/images/2.jpeg" alt="돔콘" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/2.jpeg" alt="돔콘" class="activity-image w-24 h-24 mx-auto mb-2 object-cover">
                     <span class="text-sm font-medium">Dome cone</span>
                 </div>
             </div>
             <div class="p-4">
                 <div class="activity-card">
-                    <img src="https://raw.githubusercontent.com/USERNAME/REPOSITORY/main/images/3.jpeg" alt="스킬볼" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/3.jpeg" alt="스킬볼" class="activity-image w-24 h-24 mx-auto mb-2 object-cover">
                     <span class="text-sm font-medium">Skill ball</span>
                 </div>
             </div>
             <div class="p-4">
                 <div class="activity-card">
-                    <img src="https://placehold.co/80x80/3B82F6/FFF?text=🎯" alt="스텝롤" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <img src="https://placehold.co/80x80/3B82F6/FFF?text=🎯" alt="스텝롤" class="activity-image w-24 h-24 mx-auto mb-2 object-cover">
                     <span class="text-sm font-medium">Step roll</span>
                 </div>
             </div>
