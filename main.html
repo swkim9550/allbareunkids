@@ -192,6 +192,80 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
+
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0.7;
+        }
+
+        .particle1 {
+            animation: particle1-float 8s ease-in-out infinite;
+        }
+
+        .particle2 {
+            animation: particle2-float 10s ease-in-out infinite;
+        }
+
+        @keyframes particle1-float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            25% { transform: translate(30px, -40px) rotate(90deg) scale(1.1); }
+            50% { transform: translate(-20px, -80px) rotate(180deg) scale(0.9); }
+            75% { transform: translate(-40px, -40px) rotate(270deg) scale(1.05); }
+        }
+
+        @keyframes particle2-float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            33% { transform: translate(-25px, -50px) rotate(120deg) scale(0.8); }
+            66% { transform: translate(35px, -70px) rotate(240deg) scale(1.2); }
+        }
+
+        .title-letter {
+            display: inline-block;
+            animation: letterPop 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px) scale(0.5);
+        }
+
+        @keyframes letterPop {
+            0% { opacity: 0; transform: translateY(30px) scale(0.5); }
+            50% { transform: translateY(-10px) scale(1.2); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .rainbow-text {
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #48cae4, #ff6b6b, #feca57, #48cae4);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbow 3s ease-in-out infinite;
+        }
+
+        @keyframes rainbow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .firework {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .firework-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(1); opacity: 0; }
+        }
     </style>
 </head>
 <body class="flex justify-center items-center min-h-screen">
@@ -206,6 +280,14 @@
     <div class="shape w-24 h-24 bg-green-300 rounded-full"></div>
     <div class="shape w-18 h-18 bg-blue-300 rounded-full"></div>
 </div>
+
+<!-- 파티클 이미지들 -->
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle1.png" alt="파티클1" class="particle particle1 w-12 h-12" style="top: 15%; left: 20%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle2.png" alt="파티클2" class="particle particle2 w-10 h-10" style="top: 25%; right: 15%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle1.png" alt="파티클1" class="particle particle1 w-8 h-8" style="bottom: 30%; left: 10%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle2.png" alt="파티클2" class="particle particle2 w-14 h-14" style="bottom: 20%; right: 25%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle1.png" alt="파티클1" class="particle particle1 w-10 h-10" style="top: 60%; left: 5%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle2.png" alt="파티클2" class="particle particle2 w-12 h-12" style="top: 70%; right: 8%;">
 
 <div class="max-w-7xl w-full main-card rounded-3xl shadow-2xl overflow-hidden">
     <!-- 상단 헤더 -->
@@ -233,10 +315,10 @@
             </div>
         </div>
         
-        <h1 class="text-4xl sm:text-6xl font-bold text-white mb-2 sparkle">
-            2026 ALL바른키즈 정규 체육
+        <h1 class="text-4xl sm:text-6xl font-bold text-white mb-2" id="main-title">
+            <!-- 제목 글자들이 여기에 동적으로 추가됩니다 -->
         </h1>
-        <p class="text-white text-lg opacity-90">English Sports Kindergarten Annual Plan</p>
+        <p class="text-white text-lg opacity-90 rainbow-text">English Sports Kindergarten Annual Plan</p>
     </div>
 
     <!-- 메인 콘텐츠 -->
@@ -676,6 +758,60 @@
 </div>
 
 <script>
+    // 제목 애니메이션
+    function animateTitle() {
+        const title = '2026 ALL바른키즈 정규 체육';
+        const titleElement = document.getElementById('main-title');
+        titleElement.innerHTML = '';
+        
+        title.split('').forEach((char, index) => {
+            const span = document.createElement('span');
+            span.textContent = char === ' ' ? '\u00A0' : char;
+            span.className = 'title-letter sparkle';
+            span.style.animationDelay = `${index * 0.1}s`;
+            titleElement.appendChild(span);
+        });
+    }
+
+    // 폭죽 효과
+    function createFirework(x, y) {
+        const firework = document.createElement('div');
+        firework.className = 'firework';
+        firework.style.left = x + 'px';
+        firework.style.top = y + 'px';
+        
+        const colors = ['#ff6b6b', '#feca57', '#48cae4', '#ff9ff3', '#54a0ff'];
+        
+        for (let i = 0; i < 12; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'firework-particle';
+            particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            const angle = (i * 30) * Math.PI / 180;
+            const distance = 50 + Math.random() * 50;
+            const x = Math.cos(angle) * distance;
+            const y = Math.sin(angle) * distance;
+            
+            particle.style.transform = `translate(${x}px, ${y}px)`;
+            firework.appendChild(particle);
+        }
+        
+        document.body.appendChild(firework);
+        setTimeout(() => firework.remove(), 1000);
+    }
+
+    // 클릭 이벤트
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.download-btn') && !e.target.closest('.main-card')) {
+            createFirework(e.clientX, e.clientY);
+        }
+    });
+
+    // 페이지 로드 시 애니메이션 시작
+    window.addEventListener('load', () => {
+        setTimeout(animateTitle, 500);
+    });
+
     async function downloadImage() {
         const button = document.querySelector('.download-btn');
         const originalText = button.innerHTML;
