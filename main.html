@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 ALL바른키즈 정규 체육</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Jua:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Fredoka', 'Jua', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { top: 20%; right: 10%; animation-delay: 1s; }
+        .shape:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 2s; }
+        .shape:nth-child(4) { bottom: 10%; right: 20%; animation-delay: 3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .main-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-gradient {
+            background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 50%, #45b7d1 100%);
+        }
+
+        .month-badge {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .subject-badge {
+            background: linear-gradient(45deg, #48cae4, #023e8a);
+            color: white;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .activity-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            border: 2px solid #e0e7ff;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            padding: 12px;
+        }
+
+        .activity-card:hover {
+            border-color: #ff6b6b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.2);
+        }
+
+        .activity-image {
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .activity-image:hover {
+            transform: scale(1.1);
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+        }
+
+        .sparkle {
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .row-hover:hover {
+            background: linear-gradient(90deg, rgba(255, 107, 107, 0.05) 0%, rgba(78, 205, 196, 0.05) 100%);
+        }
+
+        .logo-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen">
+<!-- 다운로드 버튼 -->
+<button class="download-btn" onclick="downloadImage()">
+    📸 이미지 다운로드
+</button>
+<!-- 배경 도형들 -->
+<div class="floating-shapes">
+    <div class="shape w-20 h-20 bg-yellow-300 rounded-full"></div>
+    <div class="shape w-16 h-16 bg-pink-300 rounded-full"></div>
+    <div class="shape w-24 h-24 bg-green-300 rounded-full"></div>
+    <div class="shape w-18 h-18 bg-blue-300 rounded-full"></div>
+</div>
+
+<div class="max-w-7xl w-full main-card rounded-3xl shadow-2xl overflow-hidden">
+    <!-- 상단 헤더 -->
+    <div class="relative header-gradient p-8 text-center">
+        <div class="absolute top-4 left-4 logo-bounce">
+            <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg">
+                <span class="text-2xl">🏃‍♂️</span>
+            </div>
+        </div>
+        <h1 class="text-4xl sm:text-6xl font-bold text-white mb-2 sparkle">
+            2025 ALL바른키즈 정규 체육
+        </h1>
+        <p class="text-white text-lg opacity-90">English Sports Kindergarten Annual Plan</p>
+    </div>
+
+    <!-- 메인 콘텐츠 -->
+    <div class="p-6 sm:p-10">
+        <!-- 표 헤더 -->
+        <div class="grid grid-cols-6 text-center table-header rounded-t-2xl text-sm sm:text-base font-semibold">
+            <div class="p-4 border-r border-white/20">Month</div>
+            <div class="p-4 border-r border-white/20">Subject</div>
+            <div class="p-4 border-r border-white/20">근력 & 근지구력<br><span class="text-xs opacity-80">Strength</span></div>
+            <div class="p-4 border-r border-white/20">심폐지구력<br><span class="text-xs opacity-80">Cardio</span></div>
+            <div class="p-4 border-r border-white/20">순발력 & 민첩성<br><span class="text-xs opacity-80">Agility</span></div>
+            <div class="p-4">유연성 & 평형성<br><span class="text-xs opacity-80">Flexibility</span></div>
+        </div>
+
+        <!-- 3월 -->
+        <div class="grid grid-cols-6 text-center border-b border-gray-200 row-hover">
+            <div class="p-4 flex items-center justify-center">
+                <div class="month-badge">3</div>
+            </div>
+            <div class="p-4 flex items-center justify-center">
+                <div class="subject-badge">Color</div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://raw.githubusercontent.com/USERNAME/REPOSITORY/main/images/1.jpeg" alt="낙하산" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Parachute</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://raw.githubusercontent.com/USERNAME/REPOSITORY/main/images/2.jpeg" alt="돔콘" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Dome cone</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://raw.githubusercontent.com/USERNAME/REPOSITORY/main/images/3.jpeg" alt="스킬볼" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Skill ball</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/3B82F6/FFF?text=🎯" alt="스텝롤" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Step roll</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4월 -->
+        <div class="grid grid-cols-6 text-center border-b border-gray-200 row-hover">
+            <div class="p-4 flex items-center justify-center">
+                <div class="month-badge">4</div>
+            </div>
+            <div class="p-4 flex items-center justify-center">
+                <div class="subject-badge">Food</div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/FACC15/FFF?text=🍦" alt="아이스크림컵" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Ice cream cup</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/8B5CF6/FFF?text=🥤" alt="콘&스틱" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Cone & Stick</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/3B82F6/FFF?text=🧁" alt="토핑" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Topping</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/10B981/FFF?text=🎪" alt="후프 바운서" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Hoop bouncer</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5월 -->
+        <div class="grid grid-cols-6 text-center border-b border-gray-200 row-hover">
+            <div class="p-4 flex items-center justify-center">
+                <div class="month-badge">5</div>
+            </div>
+            <div class="p-4 flex items-center justify-center">
+                <div class="subject-badge">Shape</div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/EF4444/FFF?text=🎈" alt="에어 페스티벌" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Air festival</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/10B981/FFF?text=🪢" alt="패턴로프" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Pattern rope</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/F97316/FFF?text=💍" alt="링" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Ring</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/3B82F6/FFF?text=🧘" alt="밸런스 폼" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Balance foam</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6월 -->
+        <div class="grid grid-cols-6 text-center border-b border-gray-200 row-hover">
+            <div class="p-4 flex items-center justify-center">
+                <div class="month-badge">6</div>
+            </div>
+            <div class="p-4 flex items-center justify-center">
+                <div class="subject-badge">Body part</div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/FACC15/FFF?text=🧣" alt="스카프" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Scarf</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/F97316/FFF?text=📋" alt="보드" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Board</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/3B82F6/FFF?text=👣" alt="발&손 프린트" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Foot & Hand print</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/8B5CF6/FFF?text=🧱" alt="스태킹" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Stacking</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7월 -->
+        <div class="grid grid-cols-6 text-center border-b border-gray-200 row-hover">
+            <div class="p-4 flex items-center justify-center">
+                <div class="month-badge">7</div>
+            </div>
+            <div class="p-4 flex items-center justify-center">
+                <div class="subject-badge">Healthy</div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/3B82F6/FFF?text=🎬" alt="액션 메이커" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Action maker</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/10B981/FFF?text=🏈" alt="풋볼" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Football</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/F97316/FFF?text=🏸" alt="배드민턴" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Badminton</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/EF4444/FFF?text=⛰️" alt="업다운힐" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Up down hill</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8월 -->
+        <div class="grid grid-cols-6 text-center border-b border-gray-200 row-hover">
+            <div class="p-4 flex items-center justify-center">
+                <div class="month-badge">8</div>
+            </div>
+            <div class="p-4 flex items-center justify-center">
+                <div class="subject-badge">Number</div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/FACC15/FFF?text=🤾" alt="핸드볼" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Handball</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/8B5CF6/FFF?text=🔘" alt="스테핑 버튼" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Stepping button</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/3B82F6/FFF?text=🎳" alt="볼링" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Bowling</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/10B981/FFF?text=🏐" alt="토스볼" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Toss ball</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9월 -->
+        <div class="grid grid-cols-6 text-center border-b border-gray-200 row-hover">
+            <div class="p-4 flex items-center justify-center">
+                <div class="month-badge">9</div>
+            </div>
+            <div class="p-4 flex items-center justify-center">
+                <div class="subject-badge">Transportation</div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/FACC15/FFF?text=🚕" alt="택시" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Taxi</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/8B5CF6/FFF?text=🚂" alt="철로" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Railroad</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/3B82F6/FFF?text=🚀" alt="로켓" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Rocket</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/F97316/FFF?text=🎪" alt="훌라후프" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Hula hoop</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10월 -->
+        <div class="grid grid-cols-6 text-center border-b border-gray-200 row-hover">
+            <div class="p-4 flex items-center justify-center">
+                <div class="month-badge">10</div>
+            </div>
+            <div class="p-4 flex items-center justify-center">
+                <div class="subject-badge">Country</div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/FACC15/FFF?text=🎯" alt="사방치기" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Hopscotch</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/8B5CF6/FFF?text=🏀" alt="농구공" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Basketball</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/3B82F6/FFF?text=🚇" alt="터널" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Tunnel</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/10B981/FFF?text=🏋️" alt="유니바" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Unibar</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 11월 -->
+        <div class="grid grid-cols-6 text-center border-b border-gray-200 row-hover">
+            <div class="p-4 flex items-center justify-center">
+                <div class="month-badge">11</div>
+            </div>
+            <div class="p-4 flex items-center justify-center">
+                <div class="subject-badge">Friends</div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/FACC15/FFF?text=🦘" alt="캥거루 버킷" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Kangaroo bucket</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/8B5CF6/FFF?text=🤸" alt="점프 밴드" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Jump band</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/3B82F6/FFF?text=🥎" alt="캐치볼" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Catch ball</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/F97316/FFF?text=⚔️" alt="검" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Sword</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 12월 -->
+        <div class="grid grid-cols-6 text-center border-b border-gray-200 row-hover">
+            <div class="p-4 flex items-center justify-center">
+                <div class="month-badge">12</div>
+            </div>
+            <div class="p-4 flex items-center justify-center">
+                <div class="subject-badge">Animal</div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/FACC15/FFF?text=🎗️" alt="라텍스 밴드" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Latex band</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/8B5CF6/FFF?text=🐰" alt="토끼 주머니" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Rabbit bag</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/3B82F6/FFF?text=🎈" alt="에어 페스티벌" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Air festival</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/10B981/FFF?text=🐢" alt="거북이" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Turtle</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1월 -->
+        <div class="grid grid-cols-6 text-center border-b border-gray-200 row-hover">
+            <div class="p-4 flex items-center justify-center">
+                <div class="month-badge">1</div>
+            </div>
+            <div class="p-4 flex items-center justify-center">
+                <div class="subject-badge">Sports</div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/FACC15/FFF?text=🏒" alt="하키" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Hockey</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/8B5CF6/FFF?text=⚽" alt="축구" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Soccer</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/3B82F6/FFF?text=🥏" alt="플라잉 디스크" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Flying disc</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/10B981/FFF?text=⛳" alt="골프" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Golf</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2월 -->
+        <div class="grid grid-cols-6 text-center border-b border-gray-200 row-hover rounded-b-2xl">
+            <div class="p-4 flex items-center justify-center">
+                <div class="month-badge">2</div>
+            </div>
+            <div class="p-4 flex items-center justify-center">
+                <div class="subject-badge">Traditional Games</div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/FACC15/FFF?text=🪨" alt="비석" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">비석(Biseok)</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/8B5CF6/FFF?text=🎯" alt="투호" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">투호(Tuho)</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/3B82F6/FFF?text=📄" alt="딱지" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">딱지(Ddakji)</span>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="activity-card">
+                    <img src="https://placehold.co/80x80/F97316/FFF?text=🪢" alt="줄넘기" class="activity-image w-16 h-16 mx-auto mb-2">
+                    <span class="text-sm font-medium">Jump rope</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 하단 푸터 -->
+    <div class="bg-gradient-to-r from-gray-50 to-gray-100 p-6 text-center">
+        <div class="flex items-center justify-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-3">
+                <span class="text-white text-xl">💬</span>
+            </div>
+            <div>
+                <p class="text-2xl font-bold text-gray-800">allbareunkids</p>
+                <p class="text-xl font-semibold text-blue-600">010-3318-0652</p>
+            </div>
+        </div>
+        <p class="text-gray-600 text-sm">본 프로그램은 교육상황에 따라 변경될 수 있습니다.</p>
+    </div>
+</div>
+
+<script>
+    async function downloadImage() {
+        const button = document.querySelector('.download-btn');
+        const originalText = button.innerHTML;
+
+        // 버튼 상태 변경
+        button.innerHTML = '📸 캡처 중...';
+        button.disabled = true;
+
+        try {
+            // 버튼 숨기기
+            button.style.display = 'none';
+
+            // 캡처 옵션
+            const options = {
+                scale: 2, // 고해상도
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: null,
+                width: window.innerWidth,
+                height: document.body.scrollHeight
+            };
+
+            // HTML을 캔버스로 변환
+            const canvas = await html2canvas(document.body, options);
+
+            // 캔버스를 이미지로 변환
+            const imgData = canvas.toDataURL('image/png');
+
+            // 다운로드 링크 생성
+            const link = document.createElement('a');
+            link.download = '2025_ALL바른키즈_정규체육_연간계획안.png';
+            link.href = imgData;
+
+            // 다운로드 실행
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+        } catch (error) {
+            console.error('이미지 생성 중 오류:', error);
+            alert('이미지 생성 중 오류가 발생했습니다.');
+        } finally {
+            // 버튼 복원
+            button.style.display = 'block';
+            button.innerHTML = originalText;
+            button.disabled = false;
+        }
+    }
+</script>
+</body>
+</html>
