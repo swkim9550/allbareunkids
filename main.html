@@ -154,23 +154,7 @@
             box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .header-decoration {
-            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 20px;
-            padding: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-            animation: float 3s ease-in-out infinite;
-        }
 
-        .header-decoration.left {
-            animation-delay: 0s;
-        }
-
-        .header-decoration.right {
-            animation-delay: 1.5s;
-        }
 
         .download-btn {
             position: fixed;
@@ -219,6 +203,35 @@
             0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
             33% { transform: translate(-25px, -50px) rotate(120deg) scale(0.8); }
             66% { transform: translate(35px, -70px) rotate(240deg) scale(1.2); }
+        }
+
+        .particle3 {
+            animation: particle3-float 12s ease-in-out infinite;
+        }
+
+        .particle4 {
+            animation: particle4-float 6s ease-in-out infinite;
+        }
+
+        @keyframes particle3-float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1) opacity(0.8); }
+            25% { transform: translate(40px, -30px) rotate(180deg) scale(1.3) opacity(1); }
+            50% { transform: translate(-30px, -60px) rotate(360deg) scale(0.7) opacity(0.6); }
+            75% { transform: translate(20px, -90px) rotate(540deg) scale(1.1) opacity(0.9); }
+        }
+
+        @keyframes particle4-float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            50% { transform: translate(-50px, -100px) rotate(720deg) scale(1.5); }
+        }
+
+        .particle-behind {
+            z-index: 5;
+        }
+
+        .particle-front {
+            z-index: 15;
+            opacity: 0.5;
         }
 
         .title-letter {
@@ -281,13 +294,23 @@
     <div class="shape w-18 h-18 bg-blue-300 rounded-full"></div>
 </div>
 
-<!-- 파티클 이미지들 -->
-<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle1.png" alt="파티클1" class="particle particle1 w-12 h-12" style="top: 15%; left: 20%;">
-<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle2.png" alt="파티클2" class="particle particle2 w-10 h-10" style="top: 25%; right: 15%;">
-<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle1.png" alt="파티클1" class="particle particle1 w-8 h-8" style="bottom: 30%; left: 10%;">
-<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle2.png" alt="파티클2" class="particle particle2 w-14 h-14" style="bottom: 20%; right: 25%;">
-<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle1.png" alt="파티클1" class="particle particle1 w-10 h-10" style="top: 60%; left: 5%;">
-<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle2.png" alt="파티클2" class="particle particle2 w-12 h-12" style="top: 70%; right: 8%;">
+<!-- 파티클 이미지들 - 메인 카드 뒤쪽 -->
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle1.png" alt="파티클1" class="particle particle1 particle-behind w-16 h-16" style="top: 10%; left: 15%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle2.png" alt="파티클2" class="particle particle2 particle-behind w-12 h-12" style="top: 20%; right: 10%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle1.png" alt="파티클1" class="particle particle3 particle-behind w-10 h-10" style="bottom: 25%; left: 8%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle2.png" alt="파티클2" class="particle particle4 particle-behind w-18 h-18" style="bottom: 15%; right: 20%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle1.png" alt="파티클1" class="particle particle1 particle-behind w-14 h-14" style="top: 50%; left: 3%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle2.png" alt="파티클2" class="particle particle2 particle-behind w-8 h-8" style="top: 65%; right: 5%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle1.png" alt="파티클1" class="particle particle3 particle-behind w-20 h-20" style="top: 35%; left: 2%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle2.png" alt="파티클2" class="particle particle4 particle-behind w-6 h-6" style="top: 80%; right: 12%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle1.png" alt="파티클1" class="particle particle1 particle-behind w-12 h-12" style="bottom: 40%; left: 18%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle2.png" alt="파티클2" class="particle particle2 particle-behind w-16 h-16" style="bottom: 5%; right: 8%;">
+
+<!-- 파티클 이미지들 - 메인 카드 앞쪽 -->
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle1.png" alt="파티클1" class="particle particle3 particle-front w-8 h-8" style="top: 25%; left: 25%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle2.png" alt="파티클2" class="particle particle4 particle-front w-10 h-10" style="top: 45%; right: 30%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle1.png" alt="파티클1" class="particle particle1 particle-front w-6 h-6" style="bottom: 35%; left: 35%;">
+<img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/particle2.png" alt="파티클2" class="particle particle2 particle-front w-12 h-12" style="bottom: 50%; right: 25%;">
 
 <div class="max-w-7xl w-full main-card rounded-3xl shadow-2xl overflow-hidden">
     <!-- 상단 헤더 -->
@@ -295,25 +318,11 @@
         <div class="absolute top-4 left-4 logo-bounce">
             <div class="logo-container w-24 h-24">
                 <div class="logo-inner w-full h-full flex items-center justify-center overflow-hidden">
-                    <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/logo.png" alt="ALL바른키즈 로고" class="w-14 h-14 object-contain rounded-lg">
+                    <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/logo.jpeg" alt="ALL바른키즈 로고" class="w-14 h-14 object-contain rounded-lg">
                 </div>
             </div>
         </div>
-        <!-- 헤더 장식들 -->
-        <div class="absolute top-4 left-32 header-decoration left">
-            <div class="flex items-center space-x-2">
-                <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/header-left.png" alt="헤더 장식" class="w-8 h-8 rounded-lg">
-                <span class="text-2xl">🏃♂️</span>
-                <span class="text-3xl">🏀</span>
-            </div>
-        </div>
-        <div class="absolute top-4 right-4 header-decoration right">
-            <div class="flex items-center space-x-2">
-                <span class="text-3xl">🎯</span>
-                <span class="text-2xl">🤸♀️</span>
-                <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/header-right.png" alt="헤더 장식" class="w-8 h-8 rounded-lg">
-            </div>
-        </div>
+
         
         <h1 class="text-4xl sm:text-6xl font-bold text-white mb-2" id="main-title">
             <!-- 제목 글자들이 여기에 동적으로 추가됩니다 -->
