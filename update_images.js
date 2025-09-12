@@ -4,8 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const images = document.querySelectorAll('.activity-image');
     
     images.forEach(img => {
-        // 기존 클래스에서 w-24 h-24를 w-32 h-32로 변경
-        img.className = img.className.replace('w-24 h-24', 'w-32 h-32');
+        // 기존 클래스에서 w-24 h-24를 w-40 h-40로 변경
+        img.className = img.className.replace('w-24 h-24', 'w-40 h-40');
+        img.className = img.className.replace('w-32 h-32', 'w-40 h-40');
+        img.className = img.className.replace('object-cover', 'object-contain');
         img.className = img.className.replace('mb-2', 'mb-3');
         
         // 이미지를 image-glow div로 감싸기

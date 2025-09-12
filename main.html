@@ -91,9 +91,14 @@
             border: 2px solid #e0e7ff;
             border-radius: 20px;
             transition: all 0.4s ease;
-            padding: 20px;
+            padding: 24px;
             position: relative;
             overflow: hidden;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .activity-card::before {
@@ -387,12 +392,13 @@
             }
             
             .activity-card {
-                padding: 8px;
+                padding: 12px;
+                min-height: 140px;
             }
             
             .activity-image {
-                width: 90px !important;
-                height: 90px !important;
+                width: 110px !important;
+                height: 110px !important;
             }
             
             .activity-card span {
@@ -423,7 +429,7 @@
             
             .subject-badge { font-size: 9px; }
             
-            .activity-image { width: 80px !important; height: 80px !important; }
+            .activity-image { width: 100px !important; height: 100px !important; }
             
             .activity-card span { font-size: 8px; }
         }
