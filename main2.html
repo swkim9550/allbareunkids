@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Monthly Sports Flyer</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: #fefefe;
+        }
+        .flyer {
+            width: 210mm;
+            height: 297mm;
+            padding: 20mm;
+            box-sizing: border-box;
+            background: #fff8e7;
+        }
+        /* 상단 */
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .header h1 {
+            font-size: 32px;
+            color: #6a2c91;
+            margin: 0;
+        }
+        .header h2 {
+            font-size: 20px;
+            color: #444;
+            margin: 5px 0 15px;
+        }
+        /* 설명글 */
+        .intro {
+            font-size: 14px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        /* 월별 카드 그리드 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .card {
+            background: #e6f0ff;
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .card img {
+            width: 100%;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 8px;
+        }
+        .card h3 {
+            font-size: 14px;
+            margin: 0;
+            color: #333;
+        }
+        .card p {
+            font-size: 12px;
+            color: #555;
+            margin: 3px 0 0;
+        }
+        /* 푸터 */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="flyer">
+    <!-- 상단 -->
+    <div class="header">
+        <h1>2026 ALL바른키즈 방과 후 체육</h1>
+        <h2>After School Sports</h2>
+    </div>
+
+    <!-- 소개글 -->
+    <div class="intro">
+        다양한 스포츠 활동을 통해 아이들의 균형 잡힌 성장을 돕습니다.<br>
+        집중력과 자신감을 키우고 사회성을 발달시킬 수 있습니다.
+    </div>
+
+    <!-- 월별 카드 -->
+    <div class="grid">
+        <div class="card">
+            <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Parachute 1_키더스(구매예정품).JPG" alt="Handball">
+            <h3>3월 March</h3>
+            <p>Handball</p>
+        </div>
+        <div class="card">
+            <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Parachute 1_키더스(구매예정품).JPG" alt="Badminton">
+            <h3>4월 April</h3>
+            <p>Badminton</p>
+        </div>
+        <div class="card">
+            <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Parachute 1_키더스(구매예정품).JPG" alt="Fencing">
+            <h3>5월 May</h3>
+            <p>Fencing</p>
+        </div>
+        <div class="card">
+            <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Parachute 1_키더스(구매예정품).JPG" alt="Hula Hoop">
+            <h3>6월 June</h3>
+            <p>Hula hoop</p>
+        </div>
+        <div class="card">
+            <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Ring.jpg" alt="Ring">
+            <h3>7월 July</h3>
+            <p>Ring</p>
+        </div>
+        <div class="card">
+            <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Dodgeball 1_키드짐 PG소프트볼 6개 53,100(구매예정).JPG" alt="Handball">
+            <h3>8월 August</h3>
+            <p>Handball</p>
+        </div>
+        <div class="card">
+            <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Taxi 1_키더스 1개 30,000(구매예정).JPG" alt="Taxi">
+            <h3>9월 September</h3>
+            <p>Taxi</p>
+        </div>
+        <div class="card">
+            <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Hula hoop 1_무지개후프 1개 5,000원.JPG" alt="Hula hoop">
+            <h3>10월 October</h3>
+            <p>Hula hoop</p>
+        </div>
+        <div class="card">
+            <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Kangaroo bucket 1(Bucket blast).JPG" alt="Kangaroo bucket">
+            <h3>11월 November</h3>
+            <p>Kangaroo bucket</p>
+        </div>
+        <div class="card">
+            <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Fishing 1.png" alt="Fishing">
+            <h3>12월 December</h3>
+            <p>Fishing</p>
+        </div>
+        <div class="card">
+            <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Flying Disc 1 (Frisbee, Dodgebee)_스포타임 1.4.JPG" alt="Flying disc">
+            <h3>1월 January</h3>
+            <p>Flying disc</p>
+        </div>
+        <div class="card">
+            <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/투호(Tuho)_소꼼마켓 4만.jpg" alt="Tuho">
+            <h3>2월 February</h3>
+            <p>Tuho</p>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <div class="footer">
+        📞 010-1234-5678 | allbareunkids<br>
+        ※ 본 프로그램은 교육 상황에 따라 변경될 수 있습니다.
+    </div>
+</div>
+</body>
+</html>
