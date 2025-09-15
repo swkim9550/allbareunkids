@@ -20,7 +20,7 @@
             background-attachment: fixed;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 8px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -75,21 +75,21 @@
             font-weight: 600;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
         }
 
         .subject-badge {
             background: linear-gradient(45deg, #48cae4, #023e8a);
             color: white;
             font-weight: 500;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
 
         .activity-card {
@@ -97,10 +97,10 @@
             border: 2px solid #e0e7ff;
             border-radius: 15px;
             transition: all 0.4s ease;
-            padding: 15px;
+            padding: 8px;
             position: relative;
             overflow: hidden;
-            min-height: 180px;
+            min-height: 160px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -178,6 +178,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             font-weight: 600;
+            font-size: 1.1rem;
         }
 
         .sparkle {
@@ -346,73 +347,73 @@
         /* 반응형 디자인 */
         @media (max-width: 768px) {
             body {
-                padding: 10px;
+                padding: 5px;
                 background-attachment: scroll;
             }
 
             .header-gradient {
-                padding: 20px 15px;
+                padding: 15px 10px;
             }
 
             .logo-container {
-                width: 60px;
-                height: 60px;
+                width: 70px;
+                height: 70px;
             }
 
             .logo-inner img {
-                width: 36px;
-                height: 36px;
+                width: 42px;
+                height: 42px;
             }
 
             #main-title {
-                font-size: 20px !important;
+                font-size: 28px !important;
                 line-height: 1.2;
             }
 
             .rainbow-text {
-                font-size: 13px;
+                font-size: 16px;
             }
 
             .download-btn {
                 top: 10px;
                 right: 10px;
-                padding: 8px 12px;
-                font-size: 11px;
-            }
-
-            .table-header {
-                font-size: 11px;
-                padding: 8px 4px;
-            }
-
-            .table-header > div {
-                padding: 8px 2px !important;
-            }
-
-            .month-badge {
-                width: 35px;
-                height: 35px;
+                padding: 10px 15px;
                 font-size: 14px;
             }
 
+            .table-header {
+                font-size: 14px;
+                padding: 6px 3px;
+            }
+
+            .table-header > div {
+                padding: 6px 2px !important;
+            }
+
+            .month-badge {
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
+            }
+
             .subject-badge {
-                padding: 4px 8px;
-                font-size: 11px;
+                padding: 6px 12px;
+                font-size: 14px;
             }
 
             .activity-card {
-                padding: 12px;
-                min-height: 140px;
+                padding: 6px;
+                min-height: 130px;
             }
 
             .activity-image {
-                width: 110px !important;
-                height: 110px !important;
+                width: 120px !important;
+                height: 120px !important;
                 object-fit: contain !important;
             }
 
             .activity-card span {
-                font-size: 10px;
+                font-size: 13px;
             }
 
             .particle, .floating-shapes {
@@ -420,28 +421,28 @@
             }
 
             .p-6, .sm\:p-10 {
-                padding: 12px !important;
+                padding: 8px !important;
             }
         }
 
         @media (max-width: 480px) {
-            body { padding: 5px; }
+            body { padding: 3px; }
 
-            .header-gradient { padding: 15px 10px; }
+            .header-gradient { padding: 12px 8px; }
 
-            #main-title { font-size: 16px !important; }
+            #main-title { font-size: 22px !important; }
 
-            .rainbow-text { font-size: 11px; }
+            .rainbow-text { font-size: 14px; }
 
-            .table-header { font-size: 9px; }
+            .table-header { font-size: 12px; }
 
-            .month-badge { width: 30px; height: 30px; font-size: 12px; }
+            .month-badge { width: 45px; height: 45px; font-size: 16px; }
 
-            .subject-badge { font-size: 9px; }
+            .subject-badge { font-size: 12px; }
 
-            .activity-image { width: 100px !important; height: 100px !important; object-fit: contain !important; }
+            .activity-image { width: 110px !important; height: 110px !important; object-fit: contain !important; }
 
-            .activity-card span { font-size: 8px; }
+            .activity-card span { font-size: 11px; }
         }
     </style>
 </head>
@@ -478,7 +479,7 @@
 
 <div class="max-w-7xl w-full main-card rounded-3xl shadow-2xl overflow-hidden">
     <!-- 상단 헤더 -->
-    <div class="relative header-gradient p-8 text-center">
+    <div class="relative header-gradient p-4 text-center">
         <div class="absolute top-4 left-4 logo-bounce">
             <div class="logo-container w-24 h-24">
                 <div class="logo-inner w-full h-full flex items-center justify-center overflow-hidden">
@@ -488,64 +489,64 @@
         </div>
 
 
-        <h1 class="text-4xl sm:text-6xl font-bold text-white mb-2" id="main-title">
+        <h1 class="text-5xl sm:text-7xl font-bold text-white mb-2" id="main-title">
             <!-- 제목 글자들이 여기에 동적으로 추가됩니다 -->
         </h1>
-        <p class="text-white text-lg opacity-90 rainbow-text">English Sports Kindergarten Annual Plan</p>
+        <p class="text-white text-xl opacity-90 rainbow-text">English Sports Kindergarten Annual Plan</p>
     </div>
 
     <!-- 메인 콘텐츠 -->
-    <div class="p-6 sm:p-10">
+    <div class="p-3 sm:p-4">
         <!-- 표 헤더 -->
-        <div class="table-header rounded-t-2xl text-sm sm:text-base font-semibold">
-            <div class="grid" style="grid-template-columns: 80px 120px 1fr 1fr 1fr 1fr; grid-template-rows: auto auto;">
+        <div class="table-header rounded-t-2xl text-base sm:text-lg font-semibold">
+            <div class="grid" style="grid-template-columns: 90px 140px 1fr 1fr 1fr 1fr; grid-template-rows: auto auto;">
                 <!-- Month - 2행 병합 -->
-                <div class="p-4 border-r border-white/20 text-center flex items-center justify-center" style="grid-row: 1 / 3;">Month</div>
+                <div class="p-3 border-r border-white/20 text-center flex items-center justify-center" style="grid-row: 1 / 3;">Month</div>
                 <!-- Subject - 2행 병합 -->
-                <div class="p-4 border-r border-white/20 text-center flex items-center justify-center" style="grid-row: 1 / 3;">Subject</div>
+                <div class="p-3 border-r border-white/20 text-center flex items-center justify-center" style="grid-row: 1 / 3;">Subject</div>
                 <!-- Equipment - 1행째 -->
-                <div class="p-4 border-b border-white/20 text-center flex items-center justify-center" style="grid-column: 3 / 7;">Equipment</div>
+                <div class="p-3 border-b border-white/20 text-center flex items-center justify-center" style="grid-column: 3 / 7;">Equipment</div>
                 <!-- 근력 & 근지구력 - 2행째 -->
-                <div class="p-3 border-r border-white/20 text-center flex items-center justify-center">근력 & 근지구력<br><span class="text-xs opacity-80"></span></div>
+                <div class="p-2 border-r border-white/20 text-center flex items-center justify-center text-sm">근력 & 근지구력<br><span class="text-xs opacity-80"></span></div>
                 <!-- 심폐지구력 - 2행째 -->
-                <div class="p-3 border-r border-white/20 text-center flex items-center justify-center">심폐지구력<br><span class="text-xs opacity-80"></span></div>
+                <div class="p-2 border-r border-white/20 text-center flex items-center justify-center text-sm">심폐지구력<br><span class="text-xs opacity-80"></span></div>
                 <!-- 순발력 & 민첩성 - 2행째 -->
-                <div class="p-3 border-r border-white/20 text-center flex items-center justify-center">순발력 & 민첩성<br><span class="text-xs opacity-80"></span></div>
+                <div class="p-2 border-r border-white/20 text-center flex items-center justify-center text-sm">순발력 & 민첩성<br><span class="text-xs opacity-80"></span></div>
                 <!-- 유연성 & 평형성 - 2행째 -->
-                <div class="p-3 text-center flex items-center justify-center">유연성 & 평형성<br><span class="text-xs opacity-80"></span></div>
+                <div class="p-2 text-center flex items-center justify-center text-sm">유연성 & 평형성<br><span class="text-xs opacity-80"></span></div>
             </div>
         </div>
 
         <!-- 3월 -->
-        <div class="grid text-center border-b border-gray-200 row-hover month-row" style="grid-template-columns: 80px 120px 1fr 1fr 1fr 1fr;">
-            <div class="p-4 flex items-center justify-center">
+        <div class="grid text-center border-b border-gray-200 row-hover month-row" style="grid-template-columns: 90px 140px 1fr 1fr 1fr 1fr;">
+            <div class="p-2 flex items-center justify-center">
                 <div class="month-badge">3</div>
             </div>
-            <div class="p-4 flex items-center justify-center">
+            <div class="p-2 flex items-center justify-center">
                 <div class="subject-badge">Color</div>
             </div>
-            <div class="p-4">
+            <div class="p-2">
                 <div class="activity-card">
-                    <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Parachute 1_키더스(구매예정품).JPG" alt="낙하산" class="activity-image w-24 h-24 mx-auto mb-2 object-cover">
-                    <span class="text-sm font-medium">Parachute</span>
+                    <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Parachute 1_키더스(구매예정품).JPG" alt="낙하산" class="activity-image w-24 h-24 mx-auto mb-1 object-cover">
+                    <span class="text-base font-medium">Parachute</span>
                 </div>
             </div>
-            <div class="p-4">
+            <div class="p-2">
                 <div class="activity-card">
-                    <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Dome Cone 2_플레이잭(구매예정).JPG" alt="돔콘" class="activity-image w-24 h-24 mx-auto mb-2 object-cover">
-                    <span class="text-sm font-medium">Dome cone</span>
+                    <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Dome Cone 2_플레이잭(구매예정).JPG" alt="돔콘" class="activity-image w-24 h-24 mx-auto mb-1 object-cover">
+                    <span class="text-base font-medium">Dome cone</span>
                 </div>
             </div>
-            <div class="p-4">
+            <div class="p-2">
                 <div class="activity-card">
-                    <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Air ladder 에어사다리.jpg" alt="스킬볼" class="activity-image w-24 h-24 mx-auto mb-2 object-cover">
-                    <span class="text-sm font-medium">Air ladder</span>
+                    <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Air ladder 에어사다리.jpg" alt="스킬볼" class="activity-image w-24 h-24 mx-auto mb-1 object-cover">
+                    <span class="text-base font-medium">Air ladder</span>
                 </div>
             </div>
-            <div class="p-4">
+            <div class="p-2">
                 <div class="activity-card">
-                    <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Step roll 1_키더스(구매예정).JPG" alt="스텝롤" class="activity-image w-24 h-24 mx-auto mb-2 object-cover">
-                    <span class="text-sm font-medium">Step roll</span>
+                    <img src="https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/Step roll 1_키더스(구매예정).JPG" alt="스텝롤" class="activity-image w-24 h-24 mx-auto mb-1 object-cover">
+                    <span class="text-base font-medium">Step roll</span>
                 </div>
             </div>
 
@@ -553,7 +554,7 @@
         </div>
 
         <!-- 4월 -->
-        <div class="grid text-center border-b border-gray-200 row-hover month-row" style="grid-template-columns: 80px 120px 1fr 1fr 1fr 1fr;">
+        <div class="grid text-center border-b border-gray-200 row-hover month-row" style="grid-template-columns: 90px 140px 1fr 1fr 1fr 1fr;">
             <div class="p-4 flex items-center justify-center">
                 <div class="month-badge">4</div>
             </div>
@@ -587,7 +588,7 @@
         </div>
 
         <!-- 5월 -->
-        <div class="grid text-center border-b border-gray-200 row-hover month-row" style="grid-template-columns: 80px 120px 1fr 1fr 1fr 1fr;">
+        <div class="grid text-center border-b border-gray-200 row-hover month-row" style="grid-template-columns: 90px 140px 1fr 1fr 1fr 1fr;">
             <div class="p-4 flex items-center justify-center">
                 <div class="month-badge">5</div>
             </div>
@@ -621,7 +622,7 @@
         </div>
 
         <!-- 6월 -->
-        <div class="grid text-center border-b border-gray-200 row-hover month-row" style="grid-template-columns: 80px 120px 1fr 1fr 1fr 1fr;">
+        <div class="grid text-center border-b border-gray-200 row-hover month-row" style="grid-template-columns: 90px 140px 1fr 1fr 1fr 1fr;">
             <div class="p-4 flex items-center justify-center">
                 <div class="month-badge">6</div>
             </div>
@@ -655,7 +656,7 @@
         </div>
 
         <!-- 7월 -->
-        <div class="grid text-center border-b border-gray-200 row-hover month-row" style="grid-template-columns: 80px 120px 1fr 1fr 1fr 1fr;">
+        <div class="grid text-center border-b border-gray-200 row-hover month-row" style="grid-template-columns: 90px 140px 1fr 1fr 1fr 1fr;">
             <div class="p-4 flex items-center justify-center">
                 <div class="month-badge">7</div>
             </div>
@@ -689,7 +690,7 @@
         </div>
 
         <!-- 8월 -->
-        <div class="grid text-center border-b border-gray-200 row-hover" style="grid-template-columns: 80px 120px 1fr 1fr 1fr 1fr;">
+        <div class="grid text-center border-b border-gray-200 row-hover" style="grid-template-columns: 90px 140px 1fr 1fr 1fr 1fr;">
             <div class="p-4 flex items-center justify-center">
                 <div class="month-badge">8</div>
             </div>
@@ -723,7 +724,7 @@
         </div>
 
         <!-- 9월 -->
-        <div class="grid text-center border-b border-gray-200 row-hover" style="grid-template-columns: 80px 120px 1fr 1fr 1fr 1fr;">
+        <div class="grid text-center border-b border-gray-200 row-hover" style="grid-template-columns: 90px 140px 1fr 1fr 1fr 1fr;">
             <div class="p-4 flex items-center justify-center">
                 <div class="month-badge">9</div>
             </div>
@@ -757,7 +758,7 @@
         </div>
 
         <!-- 10월 -->
-        <div class="grid text-center border-b border-gray-200 row-hover" style="grid-template-columns: 80px 120px 1fr 1fr 1fr 1fr;">
+        <div class="grid text-center border-b border-gray-200 row-hover" style="grid-template-columns: 90px 140px 1fr 1fr 1fr 1fr;">
             <div class="p-4 flex items-center justify-center">
                 <div class="month-badge">10</div>
             </div>
@@ -791,7 +792,7 @@
         </div>
 
         <!-- 11월 -->
-        <div class="grid text-center border-b border-gray-200 row-hover" style="grid-template-columns: 80px 120px 1fr 1fr 1fr 1fr;">
+        <div class="grid text-center border-b border-gray-200 row-hover" style="grid-template-columns: 90px 140px 1fr 1fr 1fr 1fr;">
             <div class="p-4 flex items-center justify-center">
                 <div class="month-badge">11</div>
             </div>
@@ -825,7 +826,7 @@
         </div>
 
         <!-- 12월 -->
-        <div class="grid text-center border-b border-gray-200 row-hover" style="grid-template-columns: 80px 120px 1fr 1fr 1fr 1fr;">
+        <div class="grid text-center border-b border-gray-200 row-hover" style="grid-template-columns: 90px 140px 1fr 1fr 1fr 1fr;">
             <div class="p-4 flex items-center justify-center">
                 <div class="month-badge">12</div>
             </div>
@@ -859,7 +860,7 @@
         </div>
 
         <!-- 1월 -->
-        <div class="grid text-center border-b border-gray-200 row-hover" style="grid-template-columns: 80px 120px 1fr 1fr 1fr 1fr;">
+        <div class="grid text-center border-b border-gray-200 row-hover" style="grid-template-columns: 90px 140px 1fr 1fr 1fr 1fr;">
             <div class="p-4 flex items-center justify-center">
                 <div class="month-badge">1</div>
             </div>
@@ -893,7 +894,7 @@
         </div>
 
         <!-- 2월 -->
-        <div class="grid text-center border-b border-gray-200 row-hover rounded-b-2xl" style="grid-template-columns: 80px 120px 1fr 1fr 1fr 1fr;">
+        <div class="grid text-center border-b border-gray-200 row-hover rounded-b-2xl" style="grid-template-columns: 90px 140px 1fr 1fr 1fr 1fr;">
             <div class="p-4 flex items-center justify-center">
                 <div class="month-badge">2</div>
             </div>
@@ -928,17 +929,17 @@
     </div>
 
     <!-- 하단 푸터 -->
-    <div class="bg-gradient-to-r from-gray-50 to-gray-100 p-6 text-center">
-        <div class="flex items-center justify-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-3">
-                <span class="text-white text-xl">💬</span>
+    <div class="bg-gradient-to-r from-gray-50 to-gray-100 p-3 text-center">
+        <div class="flex items-center justify-center mb-2">
+            <div class="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-3">
+                <span class="text-white text-2xl">💬</span>
             </div>
             <div>
-                <p class="text-2xl font-bold text-gray-800">allbareunkids</p>
-                <p class="text-xl font-semibold text-blue-600">010-3318-0652</p>
+                <p class="text-3xl font-bold text-gray-800">allbareunkids</p>
+                <p class="text-2xl font-semibold text-blue-600">010-3318-0652</p>
             </div>
         </div>
-        <p class="text-gray-600 text-sm">본 프로그램은 교육상황에 따라 변경될 수 있습니다.</p>
+        <p class="text-gray-600 text-base">본 프로그램은 교육상황에 따라 변경될 수 있습니다.</p>
     </div>
 </div>
 
