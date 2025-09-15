@@ -19,7 +19,11 @@
             background-position: center;
             background-attachment: fixed;
             min-height: 100vh;
+            margin: 0;
             padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .floating-shapes {
@@ -54,6 +58,8 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
             position: relative;
             z-index: 10;
+            max-width: 1200px;
+            width: 100%;
         }
 
         .header-gradient {
@@ -89,12 +95,12 @@
         .activity-card {
             background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
             border: 2px solid #e0e7ff;
-            border-radius: 20px;
+            border-radius: 15px;
             transition: all 0.4s ease;
-            padding: 24px;
+            padding: 15px;
             position: relative;
             overflow: hidden;
-            min-height: 200px;
+            min-height: 180px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -123,15 +129,15 @@
         }
 
         .activity-image {
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
             transition: all 0.4s ease;
-            border: 4px solid #fff;
+            border: 3px solid #fff;
             position: relative;
             z-index: 1;
             object-fit: fill !important;
-            width: 160px !important;
-            height: 160px !important;
+            width: 140px !important;
+            height: 140px !important;
         }
 
         .activity-image:hover {
@@ -442,7 +448,7 @@
 <body class="flex justify-center items-center min-h-screen">
 <!-- 다운로드 버튼 -->
 <button class="download-btn" onclick="downloadImage()">
-    📸 이미지 다운로드
+    📸 고화질 다운로드
 </button>
 <!-- 배경 도형들 -->
 <div class="floating-shapes">
@@ -1000,28 +1006,59 @@
         button.disabled = true;
 
         try {
-            // 버튼 숨기기
+            // 버튼과 파티클, 애니메이션 숨기기
             button.style.display = 'none';
+            const particles = document.querySelectorAll('.particle, .floating-shapes');
+            const animatedElements = document.querySelectorAll('.logo-bounce, .sparkle, .title-letter');
+            const titleElement = document.getElementById('main-title');
+            const headerElement = document.querySelector('.header-gradient');
+            
+            particles.forEach(p => p.style.display = 'none');
+            animatedElements.forEach(el => {
+                el.style.animation = 'none';
+                el.style.transform = 'none';
+            });
+            
+            // 제목을 고정된 텍스트로 설정
+            const originalTitle = titleElement.innerHTML;
+            titleElement.innerHTML = '2026 ALL바른키즈 정규 체육';
+            titleElement.style.animation = 'none';
+            
+            // 무지개 텍스트 효과 제거
+            const rainbowText = document.querySelector('.rainbow-text');
+            const originalRainbowBg = rainbowText.style.background;
+            rainbowText.style.background = 'none';
+            rainbowText.style.webkitBackgroundClip = 'unset';
+            rainbowText.style.webkitTextFillColor = 'white';
+            rainbowText.style.animation = 'none';
+            
+            // 헤더 배경 완전 제거
+            const originalHeaderBg = headerElement.style.background;
+            headerElement.style.background = '#4a90e2';
+            headerElement.style.backgroundImage = 'none';
 
-            // 캡처 옵션
+            // 메인 카드만 캡처
+            const mainCard = document.querySelector('.main-card');
+
+            // 최고 화질 캡처 옵션
             const options = {
-                scale: 2, // 고해상도
+                scale: 4,
                 useCORS: true,
                 allowTaint: true,
-                backgroundColor: null,
-                width: window.innerWidth,
-                height: document.body.scrollHeight
+                backgroundColor: '#ffffff',
+                scrollX: 0,
+                scrollY: 0
             };
 
-            // HTML을 캔버스로 변환
-            const canvas = await html2canvas(document.body, options);
+            // 메인 카드만 캡처
+            const canvas = await html2canvas(mainCard, options);
 
-            // 캔버스를 이미지로 변환
-            const imgData = canvas.toDataURL('image/png');
+            // 최고 화질 PNG로 변환
+            const imgData = canvas.toDataURL('image/png', 1.0);
 
             // 다운로드 링크 생성
             const link = document.createElement('a');
-            link.download = '2026_ALL바른키즈_정규체육_연간계획안.png';
+            link.download = '2026_ALL바른키즈_정규체육_전단지.png';
             link.href = imgData;
 
             // 다운로드 실행
@@ -1033,8 +1070,44 @@
             console.error('이미지 생성 중 오류:', error);
             alert('이미지 생성 중 오류가 발생했습니다.');
         } finally {
-            // 버튼 복원
+            // 요소들 복원
             button.style.display = 'block';
+            const particles = document.querySelectorAll('.particle, .floating-shapes');
+            const animatedElements = document.querySelectorAll('.logo-bounce, .sparkle, .title-letter');
+            const titleElement = document.getElementById('main-title');
+            const headerElement = document.querySelector('.header-gradient');
+            
+            particles.forEach(p => p.style.display = 'block');
+            animatedElements.forEach(el => {
+                el.style.animation = '';
+                el.style.transform = '';
+            });
+            
+            // 제목 애니메이션 복원
+            if (typeof originalTitle !== 'undefined') {
+                titleElement.innerHTML = originalTitle;
+            }
+            titleElement.style.animation = '';
+            
+            // 무지개 텍스트 복원
+            const rainbowText = document.querySelector('.rainbow-text');
+            if (typeof originalRainbowBg !== 'undefined') {
+                rainbowText.style.background = originalRainbowBg;
+            } else {
+                rainbowText.style.background = '';
+            }
+            rainbowText.style.webkitBackgroundClip = '';
+            rainbowText.style.webkitTextFillColor = '';
+            rainbowText.style.animation = '';
+            
+            // 헤더 배경 복원
+            if (typeof originalHeaderBg !== 'undefined') {
+                headerElement.style.background = originalHeaderBg;
+            } else {
+                headerElement.style.background = '';
+            }
+            headerElement.style.backgroundImage = '';
+            
             button.innerHTML = originalText;
             button.disabled = false;
         }
