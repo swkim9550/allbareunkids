@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영어 유치원 정보</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .upload-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .search-section {
+            margin-bottom: 20px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .results-info {
+            margin: 10px 0;
+            color: #666;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #333;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        .file-input {
+            margin: 10px;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>영어 유치원 정보</h1>
+        
+        <div class="upload-section">
+            <h3>엑셀 파일 업로드</h3>
+            <input type="file" id="fileInput" accept=".xlsx,.xls" class="file-input">
+            <p>엑셀 파일을 선택하세요 (유치원 이름과 주소가 포함된 파일)</p>
+        </div>
+
+        <div class="search-section">
+            <select id="sheetSelect" class="search-input" style="margin-bottom: 10px;">
+                <option value="">시트를 선택하세요</option>
+                <option value="ALL">전체 시트에서 검색</option>
+            </select>
+            <input type="text" id="searchInput" class="search-input" placeholder="주소로 검색하세요 (예: 강남구, 서초구, 송파구...)">
+        </div>
+
+        <div class="results-info" id="resultsInfo"></div>
+
+        <table id="dataTable" style="display: none;">
+            <thead id="tableHeader">
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+
+        <div class="no-data" id="noData">
+            기본 데이터를 로드 중입니다...
+        </div>
+    </div>
+
+    <script>
+        let allData = [];
+        let filteredData = [];
+        let workbookData = {};
+        let currentSheet = '';
+
+        const fileInput = document.getElementById('fileInput');
+        const sheetSelect = document.getElementById('sheetSelect');
+        const searchInput = document.getElementById('searchInput');
+        const dataTable = document.getElementById('dataTable');
+        const tableBody = document.getElementById('tableBody');
+        const noData = document.getElementById('noData');
+        const resultsInfo = document.getElementById('resultsInfo');
+
+        // 파일 업로드 처리
+        fileInput.addEventListener('change', handleFile);
+        
+        // 시트 선택 처리
+        sheetSelect.addEventListener('change', handleSheetChange);
+        
+        // 검색 기능
+        searchInput.addEventListener('input', filterData);
+        
+        // 페이지 로드 시 기본 데이터 로드
+        window.addEventListener('load', loadDefaultData);
+
+        function handleFile(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    
+                    // 모든 시트 읽기
+                    workbookData = {};
+                    workbook.SheetNames.forEach(sheetName => {
+                        const worksheet = workbook.Sheets[sheetName];
+                        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                        workbookData[sheetName] = jsonData;
+                    });
+                    
+                    // 시트 선택 옵션 생성
+                    populateSheetOptions(workbook.SheetNames);
+                    
+                } catch (error) {
+                    alert('파일을 읽는 중 오류가 발생했습니다: ' + error.message);
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function populateSheetOptions(sheetNames) {
+            sheetSelect.innerHTML = '<option value="">시트를 선택하세요</option><option value="ALL">전체 시트에서 검색</option>';
+            sheetNames.forEach(sheetName => {
+                const option = document.createElement('option');
+                option.value = sheetName;
+                option.textContent = sheetName;
+                sheetSelect.appendChild(option);
+            });
+        }
+
+        function handleSheetChange() {
+            const selectedSheet = sheetSelect.value;
+            if (!selectedSheet) {
+                allData = [];
+                filteredData = [];
+                displayData();
+                return;
+            }
+            
+            currentSheet = selectedSheet;
+            
+            if (selectedSheet === 'ALL') {
+                processAllSheetsData();
+            } else {
+                processExcelData(workbookData[selectedSheet]);
+            }
+        }
+
+        function processAllSheetsData() {
+            allData = [];
+            
+            Object.keys(workbookData).forEach(sheetName => {
+                const rawData = workbookData[sheetName];
+                if (rawData && rawData.length > 0) {
+                    const headers = rawData[0] || [];
+                    
+                    for (let i = 1; i < rawData.length; i++) {
+                        const row = rawData[i];
+                        if (row && row.some(cell => cell !== undefined && cell !== '')) {
+                            const rowData = { '시트': sheetName };
+                            headers.forEach((header, index) => {
+                                if (header) {
+                                    rowData[header] = row[index] || '';
+                                }
+                            });
+                            
+                            const filledFields = Object.values(rowData).filter(val => val !== '').length;
+                            if (filledFields >= 2) {
+                                allData.push(rowData);
+                            }
+                        }
+                    }
+                }
+            });
+            
+            filteredData = [...allData];
+            displayData();
+        }
+
+        function processExcelData(rawData) {
+            allData = [];
+            
+            if (!rawData || rawData.length === 0) {
+                displayData();
+                return;
+            }
+            
+            const headers = rawData[0] || [];
+            
+            for (let i = 1; i < rawData.length; i++) {
+                const row = rawData[i];
+                if (row && row.some(cell => cell !== undefined && cell !== '')) {
+                    const rowData = {};
+                    headers.forEach((header, index) => {
+                        if (header) {
+                            rowData[header] = row[index] || '';
+                        }
+                    });
+                    
+                    const filledFields = Object.values(rowData).filter(val => val !== '').length;
+                    if (filledFields >= 2) {
+                        allData.push(rowData);
+                    }
+                }
+            }
+
+            filteredData = [...allData];
+            displayData();
+        }
+
+        function filterData() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            
+            if (searchTerm === '') {
+                filteredData = [...allData];
+            } else {
+                filteredData = allData.filter(item => {
+                    // 모든 필드에서 검색
+                    return Object.values(item).some(value => 
+                        String(value).toLowerCase().includes(searchTerm)
+                    );
+                });
+            }
+            
+            displayData();
+        }
+
+        function loadDefaultData() {
+            fetch('https://raw.githubusercontent.com/swkim9550/allbareunkids/main/images/sample-kindergartens.csv')
+                .then(response => response.text())
+                .then(csvText => {
+                    // CSV를 엑셀 형식으로 변환
+                    const workbook = XLSX.read(csvText, { type: 'string' });
+                    
+                    // 모든 시트 읽기
+                    workbookData = {};
+                    workbook.SheetNames.forEach(sheetName => {
+                        const worksheet = workbook.Sheets[sheetName];
+                        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                        workbookData[sheetName] = jsonData;
+                    });
+                    
+                    // 시트 선택 옵션 생성
+                    populateSheetOptions(workbook.SheetNames);
+                    
+                    // 첫 번째 시트 자동 선택
+                    if (workbook.SheetNames.length > 0) {
+                        sheetSelect.value = workbook.SheetNames[0];
+                        handleSheetChange();
+                    }
+                })
+                .catch(error => {
+                    console.error('기본 데이터 로드 실패:', error);
+                    noData.textContent = '엑셀 파일을 업로드하면 유치원 정보가 표시됩니다.';
+                });
+        }
+
+        function displayData() {
+            const tableHeader = document.getElementById('tableHeader');
+            
+            if (filteredData.length === 0) {
+                dataTable.style.display = 'none';
+                noData.style.display = 'block';
+                if (allData.length === 0) {
+                    noData.textContent = currentSheet ? 
+                        '선택한 시트에 데이터가 없습니다.' : 
+                        '엑셀 파일을 업로드하고 시트를 선택하세요.';
+                } else {
+                    noData.textContent = '검색 결과가 없습니다.';
+                }
+                resultsInfo.textContent = '';
+                return;
+            }
+
+            noData.style.display = 'none';
+            dataTable.style.display = 'table';
+            
+            // 결과 정보 표시
+            const searchTerm = searchInput.value.trim();
+            const sheetInfo = currentSheet === 'ALL' ? ' (전체 시트)' : currentSheet ? ` (${currentSheet} 시트)` : '';
+            if (searchTerm) {
+                resultsInfo.textContent = `"${searchTerm}" 검색 결과: ${filteredData.length}개${sheetInfo}`;
+            } else {
+                resultsInfo.textContent = `전체 ${filteredData.length}개 항목${sheetInfo}`;
+            }
+
+            // 테이블 헤더 생성
+            if (filteredData.length > 0) {
+                const headers = Object.keys(filteredData[0]);
+                tableHeader.innerHTML = '';
+                const headerRow = document.createElement('tr');
+                
+                // 번호 열 추가
+                const numberHeader = document.createElement('th');
+                numberHeader.textContent = '번호';
+                headerRow.appendChild(numberHeader);
+                
+                // 데이터 헤더들 추가
+                headers.forEach(header => {
+                    const th = document.createElement('th');
+                    th.textContent = header;
+                    headerRow.appendChild(th);
+                });
+                
+                tableHeader.appendChild(headerRow);
+            }
+
+            // 테이블 내용 생성
+            tableBody.innerHTML = '';
+            filteredData.forEach((item, index) => {
+                const row = document.createElement('tr');
+                
+                // 번호 열
+                const numberCell = document.createElement('td');
+                numberCell.textContent = index + 1;
+                row.appendChild(numberCell);
+                
+                // 데이터 열들
+                Object.values(item).forEach(value => {
+                    const cell = document.createElement('td');
+                    cell.textContent = value || '';
+                    row.appendChild(cell);
+                });
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        // 샘플 데이터 생성 함수 (테스트용)
+        function loadSampleData() {
+            const sampleData = [
+                { name: 'ABC 영어유치원', address: '서울특별시 강남구 테헤란로 123' },
+                { name: '해피키즈 영어유치원', address: '서울특별시 서초구 반포대로 456' },
+                { name: '스마트 영어유치원', address: '서울특별시 송파구 올림픽로 789' },
+                { name: '브라이트 영어유치원', address: '서울특별시 강남구 논현로 321' },
+                { name: '글로벌 영어유치원', address: '서울특별시 마포구 홍익로 654' },
+                { name: '리틀 영어유치원', address: '서울특별시 서초구 서초대로 987' }
+            ];
+            
+            allData = sampleData;
+            filteredData = [...allData];
+            displayData();
+        }
+
+        // 페이지 로드 시 샘플 데이터 로드 (테스트용)
+        // loadSampleData();
+    </script>
+</body>
+</html>
